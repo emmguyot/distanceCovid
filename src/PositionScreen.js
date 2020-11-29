@@ -19,6 +19,7 @@ import {
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Header from './Header.js';
 import Geolocation from '@react-native-community/geolocation';
+import {Notifications} from 'react-native-notifications';
 
 export default class PositionScreen extends React.Component {
 
@@ -67,7 +68,21 @@ export default class PositionScreen extends React.Component {
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
         const d = R * c; // in metres
-        return Math.round(d*100)/100000.0;
+
+        const dkm = Math.round(d*100)/100000.0;
+
+        if (dkm > 10) {
+          let localNotification = Notifications.postLocalNotification({
+              body: "Distance maximale dépassée : " + dkm + "km",
+              title: "Trop loin",
+              sound: "chime.aiff",
+              silent: false,
+              category: "SOME_CATEGORY",
+              userInfo: { }
+          });
+        }
+
+        return dkm;
     }
 
     changeOrigine = () => {

@@ -10,6 +10,8 @@ target 'distanceCovid' do
 
   pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
 
+  pod 'react-native-notifications', :path => '../node_modules/react-native-notifications'
+
   target 'distanceCovidTests' do
     inherit! :complete
     # Pods for testing
